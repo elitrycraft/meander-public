@@ -35,9 +35,10 @@ rm -f "$TMP"/canvaskit/wimp*
 rm -rf "$TMP"/canvaskit/webparagraph
 rm -f "$TMP"/.last_build_id "$TMP"/quest.mnd "$TMP"/quest_web_template.zip
 
-# Экспорт кладут в подпапку (http://host/quest/), абсолютный / увёл бы
-# запросы к wasm и assets мимо неё.
-python3 - "$TMP/index.html" <<'PY'
+# Конвертируем путь /tmp/... в Windows-путь (C:\...) для Python
+WIN_TMP_INDEX=$(cygpath -w "$TMP/index.html")
+
+python3 - "$WIN_TMP_INDEX" <<'PY'
 import re, sys
 path = sys.argv[1]
 html = open(path, encoding='utf-8').read()
