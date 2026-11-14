@@ -6,6 +6,7 @@
 # приложения (см. .github/workflows).
 set -euo pipefail
 
+export MSYS_NO_PATHCONV=1
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PLAYER="$ROOT/apps/web_player"
 TARGET_DIR="$ROOT/apps/main_app/assets/web_player"
