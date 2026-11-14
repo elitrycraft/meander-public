@@ -9,9 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # 3.47.9, а не 3.50.0: на 3.50.0 Linux-десктоп рисуется со сдвигом
-  # на пол-окна (flutter/flutter#195885, хотфикс ждём в 3.50.1).
-  FLUTTER_VERSION: "3.47.9"
+  FLUTTER_VERSION: "3.47.0"
 
 jobs:
   build-windows-release:
@@ -43,13 +41,9 @@ jobs:
         working-directory: apps/main_app
         run: flutter pub get
 
-      # Веб-оболочка для in-app веб-экспорта (см. build_web_template.sh).
-      - name: Build web player template
-        run: bash ./scripts/build_web_template.sh
-
       - name: Build Windows release
         working-directory: apps/main_app
-        run: flutter build windows --release --dart-define=MEANDER_API_BASE="${{ vars.MEANDER_API_BASE || 'https://meander.illuminat.dev' }}"
+        run: flutter build windows --release
 
       - name: Copy mnd_ffi.dll next to executable
         shell: bash
